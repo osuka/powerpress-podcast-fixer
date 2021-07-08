@@ -1,16 +1,16 @@
 # Parser for radio podcast
 
-Simple scraper that can extract valid RSS podcast feeds for sites using
+Simple scraper that can extract valid Atom/RSS podcast feeds for sites using
 PowerPress (WordPress plugin) to generate feeds when there are issues
 with the podcast entries.
 
-Walks through all available pages (if paged) and then generates an RSS feed with
+Walks through all available pages (if paged) and then generates an Atom/RSS feed with
 all episodes found, ignoring ones for which media is in the wrong format or missing,
 which seems to be breaking PowerPress generation.
 
 Uses:
 
-* [feedgen](https://github.com/lkiesow/python-feedgen) to generate RSS
+* [feedgen](https://github.com/lkiesow/python-feedgen) to generate Atom/RSS
 * [lxml](https://github.com/lxml/lxml) to parse HTML
 
 ## Setup

@@ -73,13 +73,14 @@ for site in site_list:
         for blog in blogs:
             id = blog.xpath("@id")
 
-            post_date = blog.xpath('//p[@class="postdate"]/text()')[0]
-
             right = blog.xpath('div[@class="archiveblog_right"]')
             if not right:
                 continue
             right = right[0]
+          
             left = blog.xpath('div[@class="archiveblog_left"]')[0]
+
+            post_date = left.xpath('p[@class="postdate"]/text()')[0]
 
             title_element = right.xpath('h2/a[@rel="bookmark"]')[0]
             blog_title = title_element.text
@@ -127,4 +128,4 @@ for site in site_list:
     # write output
     file_name = f"{site['feedname']}-rss.xml"
     print(f"- Generated {file_name}")
-    fg.rss_file(file_name)
+    fg.atom_file(file_name)
