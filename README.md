@@ -15,15 +15,36 @@ Uses:
 
 ## Setup
 
-Install a virtual environment [as usual](https://packaging.python.org/tutorials/installing-packages/#creating-and-using-virtual-environments)
+* This project is setup so that all building/executing is done inside docker containers
 
-```sh
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+* Uses [uv](https://docs.astral.sh/uv/) inside of docker, downloads/creates venv in a docker volume
 
 ## Usage
 
-Just execute `python ./parse.py`.
-Modify/change the code to word with other sites.
+To build and run
+
+```sh
+docker rm local/podcastfixer || echo "First build"
+docker build . -t local/podcastfixer
+
+docker run \
+    --rm \
+    -w /app \
+    --volume .:/app \
+    --volume /app/.venv \
+    $INTERACTIVE \
+    local/podcastfixer \
+    python ./parse.py
+```
+
+> Note that since .venv is in a volume it avoids
+> common dependency conflicts, dynamic loading in nix etc
+
+Modify/change the code to work with other sites.
+
+For running uv commands (eg add dependencies):
+
+```sh
+# ./uv-docker.sh {{COMMAND}}
+# like ./uv-docker.sh add xxxxxxx
+```
